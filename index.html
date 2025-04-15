@@ -11,172 +11,224 @@
       font-family: 'Baloo Da 2', cursive;
       background: linear-gradient(to bottom right, #e0eafc, #cfdef3);
       min-height: 100vh;
-    }
-    .welcome-screen {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: linear-gradient(to bottom right, #e0eafc, #cfdef3);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      z-index: 100;
-      animation: fadeOut 1s ease forwards;
-      animation-delay: 3s;
-    }
-    .welcome-screen img {
-      width: 180px;
-      height: auto;
-      margin-bottom: 20px;
-      animation: zoomIn 1s ease;
-    }
-    .welcome-screen .unit-info {
-      font-size: 20px;
-      color: #333;
-      text-align: center;
-      line-height: 1.5;
-      padding: 0 20px;
-      animation: fadeInUp 1.2s ease;
-    }
-    @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
-    @keyframes zoomIn {
-      from { transform: scale(0.7); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .container {
-      display: none;
-      background: #fff;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      padding: 30px;
-      max-width: 500px;
-      margin: 50px auto;
-      text-align: center;
-      animation: fadeIn 1s ease-in-out;
-    }
-    .container.active { display: block; }
-    input, button {
-      font-family: inherit;
-      font-size: 16px;
-      padding: 10px;
-      margin: 10px 0;
-      width: 100%;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-    button {
-      background: #4b2aad;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover { background: #37228d; }
-    canvas {
-      margin-top: 15px;
-      border-radius: 16px;
-      max-width: 100%;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-    h1 { color: #4b2aad; font-size: 20px; margin-bottom: 5px; }
-    h2 { font-size: 16px; color: #000; margin-top: 0; }
-    .ayah {
-      margin: 20px 0;
-      font-size: 16px;
-      color: #333;
-      background: #f9f9f9;
-      padding: 15px;
-      border-radius: 10px;
-    }
-    footer {
-      text-align: center;
-      margin-top: 30px;
-      font-size: 14px;
-      color: #666;
-    }
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 200;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
-    }
-    .modal-content {
-      background-color: #fff;
-      margin: 50px auto;
-      padding: 20px;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 500px;
-      text-align: center;
-    }
-    .modal-content button { margin-top: 10px; }
-    .close {
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    }.welcome-screen {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom right, #e0eafc, #cfdef3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 100;
+  animation: fadeOut 1s ease forwards;
+  animation-delay: 3s;
+}
+
+.welcome-screen img {
+  width: 180px;
+  height: auto;
+  margin-bottom: 20px;
+  animation: zoomIn 1s ease;
+}
+
+.welcome-screen .unit-info {
+  font-size: 22px;
+  color: #333;
+  text-align: center;
+  line-height: 1.6;
+  padding: 0 20px;
+  animation: fadeInUp 1.2s ease;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.container {
+  display: none;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  max-width: 500px;
+  margin: 30px auto;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.container.active { display: block; }
+
+input, button {
+  font-family: inherit;
+  font-size: 16px;
+  padding: 10px;
+  margin: 10px 0;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+button {
+  background: #4b2aad;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+button:hover { background: #37228d; }
+
+canvas {
+  margin-top: 15px;
+  border-radius: 16px;
+  max-width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h1 { color: #4b2aad; font-size: 20px; margin-bottom: 5px; }
+h2 { font-size: 16px; color: #000; margin-top: 0px; }
+
+.ayah {
+  margin: 20px 0;
+  font-size: 16px;
+  color: #333;
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+footer {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 14px;
+  color: #666;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
   </style>
 </head>
-<body>
-<div class="welcome-screen" id="welcomeScreen">
+<body><!-- ওয়েলকাম পেইজ --><div class="welcome-screen" id="welcomeScreen">
   <img src="logo.png" alt="লোগো">
   <div class="unit-info">২ নং জোন, ৭ নং ওয়ার্ড<br>কালিয়াকৈর পৌর শাখা<br>বাংলাদেশ জামায়াতে ইসলামী</div>
-</div>
-<div class="container" id="mainApp">
+</div><!-- মূল অ্যাপ পেইজ --><div class="container" id="mainApp">
   <h1>বাংলাদেশ জামায়াতে ইসলামী</h1>
-  <h2>গণসংযোগ ২০২৫</h2>
-  <div class="ayah">
-    “তোমাদের মধ্যে এমন এক দল থাকা উচিত, যারা মানুষকে কল্যাণের দিকে আহ্বান জানাবে, ভালো কাজের নির্দেশ দেবে এবং মন্দ কাজে নিষেধ করবে। তারাই সফলকাম।”<br>
-    <b>– সূরা আলে ইমরান: ১০৪</b>
+  <h2>গণসংযোগ ২০২৫</h2>  <div class="ayah">
+    “তোমাদের মধ্যে এমন এক দল থাকা উচিত, যারা মানুষকে কল্যাণের দিকে আহ্বান জানাবে, ভালো কাজের নির্দেশ দেবে এবং মন্দ কাজে নিষেধ করবে। তারাই সফলকাম।”  
+    <br><b>– সূরা আলে ইমরান: ১০৪</b>
+  </div>  <input type="file" id="upload" accept="image/*">
+  <div style="width:100%; margin-top:15px;">
+    <img id="image" style="max-width:100%; display:none;" />
   </div>
-  <input type="file" id="upload" accept="image/*">
   <canvas id="canvas" width="768" height="768" style="display:none;"></canvas>
-  <button id="frameBtn" onclick="cropAndFrame()" style="display:none;">ক্রপ ও ফ্রেম যোগ করুন</button>
-  <button id="reCropBtn" onclick="reCrop()" style="display:none;">পুনরায় ক্রপ করুন</button>
-  <button id="downloadBtn" onclick="downloadImage()" style="display:none;">ছবি ডাউনলোড করুন</button>
-  <footer><p>উদ্যোগে: রাশেদ উজ জামান</p></footer>
-</div>
-<div id="cropModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <img id="modalImage" style="max-width: 100%;" />
-    <button onclick="applyCrop()">ক্রপ করুন</button>
-  </div>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
-<script>
-  let cropper;
-  const image = document.getElementById('modalImage');
-  const canvas = document.getElementById('canvas');
-  const ctx = canvas.getContext('2d');
-  const frame = new Image();
+  <button id="frameBtn" onclick="autoCropAndFrame()">ক্রপ ও ফ্রেম যোগ করুন</button>
+  <button id="reCropBtn" onclick="reCrop()" style="display:none;">পুনরায় ক্রপ করুন</button>
+  <button id="downloadBtn" onclick="downloadImage()" style="display:none;">ছবি ডাউনলোড করুন</button>  <footer>
+    <p>উদ্যোগে: রাশেদ উজ জামান</p>
+  </footer>
+</div><!-- JS --><script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.min.js"></script><script>
+  let image = document.getElementById('image');
+  let canvas = document.getElementById('canvas');
+  let ctx = canvas.getContext('2d');
+  let frame = new Image();
   frame.src = 'frame.png';
-  const downloadBtn = document.getElementById('downloadBtn');
-  const frameBtn = document.getElementById('frameBtn');
-  const reCropBtn = document.getElementById('reCropBtn');window.addEventListener('DOMContentLoaded', () => { setTimeout(() => { document.getElementById('welcomeScreen').style.display = 'none'; document.getElementById('mainApp').classList.add('active'); }, 3000); });
 
-document.getElementById('upload').addEventListener('change', function(e) { const file = e.target.files[0]; if (!file) return; const reader = new FileReader(); reader.onload = function(event) { image.src = event.target.result; document.getElementById('cropModal').style.display = 'block'; if (cropper) cropper.destroy(); cropper = new Cropper(image, { aspectRatio: 1, viewMode: 1 }); }; reader.readAsDataURL(file); });
+  window.addEventListener('DOMContentLoaded', async () => {
+    setTimeout(() => {
+      document.getElementById('welcomeScreen').style.display = 'none';
+      document.getElementById('mainApp').classList.add('active');
+    }, 3000);
 
-function applyCrop() { const croppedCanvas = cropper.getCroppedCanvas({ width: canvas.width, height: canvas.height }); ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.drawImage(croppedCanvas, 0, 0, canvas.width, canvas.height); if (frame.complete) ctx.drawImage(frame, 0, 0, canvas.width, canvas.height); else frame.onload = () => ctx.drawImage(frame, 0, 0, canvas.width, canvas.height); canvas.style.display = 'block'; downloadBtn.style.display = 'inline-block'; reCropBtn.style.display = 'inline-block'; frameBtn.style.display = 'none'; document.getElementById('cropModal').style.display = 'none'; cropper.destroy(); }
+    await faceapi.nets.tinyFaceDetector.loadFromUri('/models');
+  });
 
-function reCrop() { document.getElementById('cropModal').style.display = 'block'; cropper = new Cropper(image, { aspectRatio: 1, viewMode: 1 }); }
+  document.getElementById('upload').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      image.src = event.target.result;
+      image.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  });
 
-function closeModal() { document.getElementById('cropModal').style.display = 'none'; if (cropper) cropper.destroy(); }
+  async function autoCropAndFrame() {
+    const detections = await faceapi.detectSingleFace(image, new faceapi.TinyFaceDetectorOptions());
+    if (!detections) {
+      alert('মুখ শনাক্ত করা যায়নি');
+      return;
+    }
+    const { x, y, width, height } = detections.box;
+    const bustHeight = height * 2.2;
 
-function cropAndFrame() { document.getElementById('cropModal').style.display = 'block'; }
+    canvas.width = 768;
+    canvas.height = 768;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(
+      image,
+      x - width * 0.5,
+      y - height * 0.5,
+      width * 2,
+      bustHeight,
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
 
-function downloadImage() { const link = document.createElement('a'); link.download = 'profile_with_frame.png'; link.href = canvas.toDataURL(); link.click(); } </script>
+    if (frame.complete) {
+      ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
+    } else {
+      frame.onload = () => ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
+    }
+    canvas.style.display = 'block';
+    document.getElementById('downloadBtn').style.display = 'inline-block';
+    document.getElementById('reCropBtn').style.display = 'inline-block';
+    document.getElementById('frameBtn').style.display = 'none';
+    image.style.display = 'none';
+  }
 
-</body>
+  function reCrop() {
+    canvas.style.display = 'none';
+    document.getElementById('frameBtn').style.display = 'inline-block';
+    document.getElementById('downloadBtn').style.display = 'none';
+    document.getElementById('reCropBtn').style.display = 'none';
+    image.style.display = 'block';
+  }
+
+  function downloadImage() {
+    const link = document.createElement('a');
+    link.download = 'profile_with_frame.png';
+    link.href = canvas.toDataURL();
+    link.click();
+  }
+</script></body>
 </html>
