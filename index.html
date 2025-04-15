@@ -1,61 +1,89 @@
 <!DOCTYPE html><html lang="bn">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>প্রোফাইল ফ্রেম অ্যাপ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2&display=swap" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
-      font-family: sans-serif;
+      font-family: 'Baloo Da 2', cursive;
+      background: linear-gradient(to bottom right, #e0eafc, #cfdef3);
+      margin: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      background: linear-gradient(to bottom right, #f1effd, #e0d5ff);
-      margin: 0;
-    }
-    h2 {
-      color: #5c3d9c;
-    }
-    .card {
-      background: white;
       padding: 20px;
+    }
+    .container {
+      background: #fff;
       border-radius: 20px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      max-width: 400px;
+      width: 100%;
       text-align: center;
-      max-width: 90%;
+      animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h1 {
+      color: #4b2aad;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    input[type=file] {
+      margin: 15px 0;
     }
     canvas {
-      margin-top: 20px;
+      margin-top: 15px;
       border-radius: 16px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 350px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
     button {
-      background: #5c3d9c;
+      background: #4b2aad;
       color: white;
       border: none;
       padding: 10px 20px;
-      margin-top: 20px;
       border-radius: 8px;
+      font-size: 16px;
       cursor: pointer;
+      margin-top: 20px;
     }
-    input[type=file] {
-      margin-top: 10px;
+    button:hover {
+      background: #37228d;
+    }
+    footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #666;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h2>আপনার প্রোফাইল ছবিতে ফ্রেম যুক্ত করুন</h2>
+  <div class="container">
+    <h1>আপনার প্রোফাইল ফ্রেম যুক্ত করুন</h1>
     <input type="file" id="upload" accept="image/*">
     <canvas id="canvas" width="768" height="768"></canvas>
     <button onclick="downloadImage()">ছবি ডাউনলোড করুন</button>
-  </div>  <script>
+  </div>
+  <footer>
+    <p>উদ্যোগে: বাংলাদেশ জামায়াতে ইসলামী</p>
+  </footer>  <script>
     const upload = document.getElementById('upload');
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
 
     const frame = new Image();
-    frame.src = 'frame.png'; // আপনার ফ্রেম PNG ফাইল (আপলোড করা)
+    frame.src = 'frame.png';
 
     upload.addEventListener('change', function(e) {
       const reader = new FileReader();
