@@ -8,114 +8,42 @@
   <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css"/>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; }
     body {
       font-family: 'Baloo Da 2', cursive;
       background: linear-gradient(to bottom right, #e0eafc, #cfdef3);
+      margin: 0;
+      padding: 20px;
       min-height: 100vh;
     }
-
-    .welcome-screen {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to bottom right, #e0eafc, #cfdef3);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      z-index: 100;
-      animation: fadeOut 1s ease forwards;
-      animation-delay: 3s;
-    }
-
-    .welcome-screen img {
-      width: 150px;
-      height: auto;
-      margin-bottom: 20px;
-      animation: zoomIn 1s ease;
-    }
-
-    .welcome-screen .unit-info {
-      font-size: 20px;
-      color: #333;
-      text-align: center;
-      line-height: 1.5;
-      padding: 0 20px;
-      animation: fadeInUp 1.2s ease;
-    }
-
-    @keyframes fadeOut {
-      to {
-        opacity: 0;
-        visibility: hidden;
-      }
-    }
-
-    @keyframes zoomIn {
-      from {
-        transform: scale(0.7);
-        opacity: 0;
-      }
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
     .container {
-      display: none;
       background: #fff;
       border-radius: 20px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
       padding: 30px;
       max-width: 500px;
-      margin: 50px auto;
+      margin: auto;
       text-align: center;
+      display: none;
       animation: fadeIn 1s ease-in-out;
     }
-
-    .container.active { display: block; }
-
-    input, button {
-      font-family: inherit;
-      font-size: 16px;
-      padding: 10px;
-      margin: 10px 0;
-      width: 100%;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-    button {
-      background: #4b2aad;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover { background: #37228d; }
-
+    .active { display: block; }
     canvas {
       margin-top: 15px;
       border-radius: 16px;
       max-width: 100%;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
-
-    h1 { color: #4b2aad; font-size: 24px; margin-bottom: 10px; }
-    h2 { font-size: 18px; color: #000; margin-top: 5px; }
-
+    h1 {
+      color: #4b2aad;
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+    h2 {
+      font-size: 16px;
+      color: #000;
+      margin-top: 5px;
+    }
     .ayah {
       margin: 20px 0;
       font-size: 16px;
@@ -124,14 +52,42 @@
       padding: 15px;
       border-radius: 10px;
     }
-
+    .logo {
+      max-width: 160px;
+      margin-bottom: 15px;
+    }
+    .loading-logo {
+      max-width: 200px;
+      margin-bottom: 15px;
+    }
     footer {
       text-align: center;
       margin-top: 30px;
       font-size: 14px;
       color: #666;
     }
-
+    button {
+      font-family: inherit;
+      font-size: 16px;
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+      border-radius: 8px;
+      background: #4b2aad;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover { background: #37228d; }
+    input {
+      font-family: inherit;
+      font-size: 16px;
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -140,13 +96,15 @@
 </head>
 <body>
 
-<!-- ওয়েলকাম পেইজ -->
-<div class="welcome-screen" id="welcomeScreen">
-  <img src="logo.png" alt="লোগো">
-  <div class="unit-info">পূর্ব উলুসারা ইউনিট<br>জোন ২, কালিয়াকৈর, গাজীপুর</div>
+<!-- লোডিং স্ক্রিন -->
+<div class="container active" id="welcomeScreen">
+  <img src="logo.png" alt="লোগো" class="loading-logo">
+  <p><strong>২ নং জোন, ৭ নং ওয়ার্ড</strong></p>
+  <p><strong>কালিয়াকৈর পৌর শাখা</strong></p>
+  <p><strong>বাংলাদেশ জামায়াতে ইসলামী</strong></p>
 </div>
 
-<!-- মূল অ্যাপ পেইজ -->
+<!-- মূল অ্যাপ স্ক্রিন -->
 <div class="container" id="mainApp">
   <h1>বাংলাদেশ জামায়াতে ইসলামী</h1>
   <h2>গণসংযোগ ২০২৫</h2>
@@ -164,13 +122,13 @@
   <button id="frameBtn" onclick="cropAndFrame()">ক্রপ ও ফ্রেম যোগ করুন</button>
   <button id="reCropBtn" onclick="reCrop()" style="display:none;">পুনরায় ক্রপ করুন</button>
   <button id="downloadBtn" onclick="downloadImage()" style="display:none;">ছবি ডাউনলোড করুন</button>
-
-  <footer>
-    <p>উদ্যোগে: মোঃ রিয়াজ উদ্দিন</p>
-  </footer>
 </div>
 
-<!-- JS -->
+<footer>
+  <p>উদ্যোগে: রাশেদ উজ জামান</p>
+</footer>
+
+<!-- JS + Cropper -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 <script>
   let cropper;
@@ -183,11 +141,12 @@
   const frameBtn = document.getElementById('frameBtn');
   const reCropBtn = document.getElementById('reCropBtn');
 
+  // লোডিং স্ক্রিন টাইমআউট
   window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
-      document.getElementById('welcomeScreen').style.display = 'none';
+      document.getElementById('welcomeScreen').classList.remove('active');
       document.getElementById('mainApp').classList.add('active');
-    }, 3000);
+    }, 3000); // ৩ সেকেন্ড পরে মেইন অ্যাপ দেখাবে
   });
 
   document.getElementById('upload').addEventListener('change', function(e) {
