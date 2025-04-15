@@ -1,74 +1,51 @@
-
-<!DOCTYPE html>
-<html lang="bn">
+<!DOCTYPE html><html lang="bn">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>প্রোফাইল ফ্রেম ২০২৫</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>প্রোফাইল ফ্রেম অ্যাপ</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #f0f4f8;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
-    }
-    h1 {
-      color: #006747;
-      margin-bottom: 5px;
-      text-align: center;
-    }
-    h2 {
-      color: #444;
-      margin-bottom: 20px;
-      font-size: 16px;
-      text-align: center;
-    }
-    .container {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      text-align: center;
-      max-width: 400px;
-      width: 100%;
-    }
-    input[type="file"] {
-      margin-bottom: 15px;
-    }
-    canvas {
-      max-width: 100%;
-      margin-top: 15px;
-      border-radius: 8px;
-    }
-    button {
-      background-color: #006747;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    button:hover {
-      background-color: #004f36;
+      font-family: 'Noto Sans Bengali', sans-serif;
     }
   </style>
 </head>
-<body>
-  <h1>বাংলাদেশ জামাতে ইসলামী গণসংযোগ ২০২৫</h1>
-  <h2>প্রোফাইল ফ্রেম ডিজাইন: মোহাম্মদ রাশেদুজ্জামান</h2>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center px-4 py-8">  <h1 class="text-2xl md:text-3xl font-bold text-center text-green-800 mb-6">
+    বাংলাদেশ জামায়াতে ইসলামী গণসংযোগ ২০২৫ <br>
+    প্রোফাইল ফ্রেম ডিজাইন <br>
+    ভাই মোহাম্মদ রাশেদ উজ জামান
+  </h1>  <div class="bg-white shadow-xl rounded-xl p-6 w-full max-w-md flex flex-col items-center">
+    <input type="file" id="upload" accept="image/*" class="mb-4" />
+    <canvas id="canvas" width="600" height="600" class="w-full h-auto border"></canvas>
+    <button id="download" class="mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-full">
+      ডাউনলোড করুন
+    </button>
+  </div>  <script>
+    const upload = document.getElementById('upload');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const frame = new Image();
+    frame.src = 'frame.png'; // Ensure this PNG file is in the same folder
 
-  <div class="container">
-    <input type="file" id="upload" accept="image/*" />
-    <canvas id="canvas" width="400" height="400"></canvas>
-    <br />
-    <button onclick="downloadImage()">ডাউনলোড করুন</button>
-  </div>
+    upload.addEventListener('change', function (e) {
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const img = new Image();
+        img.onload = function () {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
+        }
+        img.src = event.target.result;
+      }
+      reader.readAsDataURL(e.target.files[0]);
+    });
 
-  <script src="script.js"></script>
-</body>
+    document.getElementById('download').addEventListener('click', function () {
+      const link = document.createElement('a');
+      link.download = 'profile_with_frame.png';
+      link.href = canvas.toDataURL();
+      link.click();
+    });
+  </script></body>
 </html>
