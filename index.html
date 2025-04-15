@@ -1,111 +1,178 @@
 
-<<!DOCTYPE html><html lang="bn">
+<!DOCTYPE html>
+<html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>প্রোফাইল ফ্রেম অ্যাপ</title>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css"/>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     body {
       font-family: 'Baloo Da 2', cursive;
       background: linear-gradient(to bottom right, #e0eafc, #cfdef3);
       margin: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
       padding: 20px;
+      min-height: 100vh;
     }
     .container {
       background: #fff;
       border-radius: 20px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
       padding: 30px;
-      max-width: 400px;
-      width: 100%;
+      max-width: 500px;
+      margin: auto;
       text-align: center;
+      display: none;
       animation: fadeIn 1s ease-in-out;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    h1 {
-      color: #4b2aad;
-      font-size: 24px;
-      margin-bottom: 20px;
-    }
-    input[type=file] {
-      margin: 15px 0;
-    }
-    canvas {
-      margin-top: 15px;
-      border-radius: 16px;
+    .active { display: block; }
+    input, select, button {
+      font-family: inherit;
+      font-size: 16px;
+      padding: 10px;
+      margin: 10px 0;
       width: 100%;
-      max-width: 350px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      border: 1px solid #ccc;
     }
     button {
       background: #4b2aad;
       color: white;
       border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-size: 16px;
       cursor: pointer;
-      margin-top: 20px;
     }
-    button:hover {
-      background: #37228d;
+    button:hover { background: #37228d; }
+    canvas {
+      margin-top: 15px;
+      border-radius: 16px;
+      max-width: 100%;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .cropper-container img { max-width: 100%; }
+    h1 { color: #4b2aad; font-size: 24px; margin-bottom: 10px; }
+    h2 { font-size: 18px; color: #000; margin-top: 5px; }
+    .ayah {
+      margin: 20px 0;
+      font-size: 16px;
+      color: #333;
+      background: #f9f9f9;
+      padding: 15px;
+      border-radius: 10px;
     }
     footer {
+      text-align: center;
       margin-top: 30px;
       font-size: 14px;
       color: #666;
     }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>আপনার প্রোফাইল ফ্রেম যুক্ত করুন</h1>
-    <input type="file" id="upload" accept="image/*">
-    <canvas id="canvas" width="768" height="768"></canvas>
-    <button onclick="downloadImage()">ছবি ডাউনলোড করুন</button>
+
+<!-- ওয়েলকাম স্ক্রিন -->
+<div class="container active" id="welcomeScreen">
+  <h1>স্বাগতম!</h1>
+  <input type="text" id="name" placeholder="আপনার নাম লিখুন" required>
+  <input type="tel" id="mobile" placeholder="মোবাইল নাম্বার দিন" required>
+  <label>আপনি কি আগে থেকে জামায়াতের সাথে সম্পৃক্ত?</label><br>
+  <label><input type="radio" name="involved" value="হ্যাঁ"> হ্যাঁ</label>
+  <label><input type="radio" name="involved" value="না"> না</label><br>
+  <input type="text" id="upazila" placeholder="উপজেলা নাম">
+  <input type="number" id="ward" placeholder="ওয়ার্ড নম্বর">
+  <input type="number" id="zone" placeholder="জোন নম্বর">
+  <input type="text" id="unit" placeholder="ইউনিট নাম">
+  <input type="text" id="district" placeholder="জেলা নাম">
+  <button onclick="goToApp()">শুরু করুন</button>
+</div>
+
+<!-- মূল অ্যাপ স্ক্রিন -->
+<div class="container" id="mainApp">
+  <h1>বাংলাদেশ জামায়াতে ইসলামী</h1>
+  <h2>গণসংযোগ ২০২৫</h2>
+
+  <div class="ayah">
+    “তোমাদের মধ্যে এমন এক দল থাকা উচিত, যারা মানুষকে কল্যাণের দিকে আহ্বান জানাবে, ভালো কাজের নির্দেশ দেবে এবং মন্দ কাজে নিষেধ করবে। তারাই সফলকাম।”  
+    <br><b>– সূরা আলে ইমরান: ১০৪</b>
   </div>
-  <footer>
-    <p>উদ্যোগে: বাংলাদেশ জামায়াতে ইসলামী</p>
-  </footer>  <script>
-    const upload = document.getElementById('upload');
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
 
-    const frame = new Image();
-    frame.src = 'frame.png';
+  <input type="file" id="upload" accept="image/*">
+  <div style="width:100%; margin-top:15px;">
+    <img id="image" style="max-width:100%; display:none;" />
+  </div>
+  <canvas id="canvas" width="768" height="768" style="display:none;"></canvas>
+  <button onclick="cropAndFrame()">ক্রপ ও ফ্রেম যোগ করুন</button>
+  <button onclick="downloadImage()">ছবি ডাউনলোড করুন</button>
+</div>
 
-    upload.addEventListener('change', function(e) {
-      const reader = new FileReader();
-      reader.onload = function(event) {
-        const img = new Image();
-        img.onload = function() {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-          frame.onload = () => ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
-          if (frame.complete) ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
-        }
-        img.src = event.target.result;
-      }
-      reader.readAsDataURL(e.target.files[0]);
+<footer>
+  <p>উদ্যোগে: মোঃ রিয়াজ উদ্দিন</p>
+</footer>
+
+<!-- JS + Cropper -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+<script>
+  let cropper;
+  const image = document.getElementById('image');
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  const frame = new Image();
+  frame.src = 'frame.png'; // তোমার ফ্রেম PNG এর পাথ
+
+  function goToApp() {
+    document.getElementById('welcomeScreen').classList.remove('active');
+    document.getElementById('mainApp').classList.add('active');
+  }
+
+  document.getElementById('upload').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      image.src = event.target.result;
+      image.style.display = 'block';
+      if (cropper) cropper.destroy();
+      cropper = new Cropper(image, {
+        aspectRatio: 1,
+        viewMode: 1,
+        movable: true,
+        zoomable: true,
+        scalable: false,
+        rotatable: false
+      });
+    };
+    reader.readAsDataURL(file);
+  });
+
+  function cropAndFrame() {
+    const croppedCanvas = cropper.getCroppedCanvas({
+      width: canvas.width,
+      height: canvas.height
     });
-
-    function downloadImage() {
-      const link = document.createElement('a');
-      link.download = 'profile_with_frame.png';
-      link.href = canvas.toDataURL();
-      link.click();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(croppedCanvas, 0, 0, canvas.width, canvas.height);
+    if (frame.complete) {
+      ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
+      canvas.style.display = 'block';
+    } else {
+      frame.onload = () => {
+        ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
+        canvas.style.display = 'block';
+      };
     }
-  </script></body>
+  }
+
+  function downloadImage() {
+    const link = document.createElement('a');
+    link.download = 'profile_with_frame.png';
+    link.href = canvas.toDataURL();
+    link.click();
+  }
+</script>
+</body>
 </html>
