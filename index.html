@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="bn">
+<!DOCTYPE html><html lang="bn">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -12,170 +11,154 @@
       font-family: 'Baloo Da 2', cursive;
       background: linear-gradient(to bottom right, #e0eafc, #cfdef3);
       min-height: 100vh;
-    }
+    }.welcome-screen {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom right, #e0eafc, #cfdef3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 100;
+  animation: fadeOut 1s ease forwards;
+  animation-delay: 3s;
+}
 
-    .welcome-screen {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to bottom right, #e0eafc, #cfdef3);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      z-index: 100;
-      animation: fadeOut 1s ease forwards;
-      animation-delay: 3s;
-    }
+.welcome-screen img {
+  width: 150px;
+  height: auto;
+  margin-bottom: 20px;
+  animation: zoomIn 1s ease;
+}
 
-    .welcome-screen img {
-      width: 150px;
-      height: auto;
-      margin-bottom: 20px;
-      animation: zoomIn 1s ease;
-    }
+.welcome-screen .unit-info {
+  font-size: 20px;
+  color: #333;
+  text-align: center;
+  line-height: 1.5;
+  padding: 0 20px;
+  animation: fadeInUp 1.2s ease;
+}
 
-    .welcome-screen .unit-info {
-      font-size: 20px;
-      color: #333;
-      text-align: center;
-      line-height: 1.5;
-      padding: 0 20px;
-      animation: fadeInUp 1.2s ease;
-    }
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
 
-    @keyframes fadeOut {
-      to {
-        opacity: 0;
-        visibility: hidden;
-      }
-    }
+@keyframes zoomIn {
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
 
-    @keyframes zoomIn {
-      from {
-        transform: scale(0.7);
-        opacity: 0;
-      }
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+.container {
+  display: none;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  max-width: 500px;
+  margin: 50px auto;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+}
 
-    .container {
-      display: none;
-      background: #fff;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      padding: 30px;
-      max-width: 500px;
-      margin: 50px auto;
-      text-align: center;
-      animation: fadeIn 1s ease-in-out;
-    }
+.container.active { display: block; }
 
-    .container.active { display: block; }
+input, button {
+  font-family: inherit;
+  font-size: 16px;
+  padding: 10px;
+  margin: 10px 0;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+button {
+  background: #4b2aad;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+button:hover { background: #37228d; }
 
-    input, button {
-      font-family: inherit;
-      font-size: 16px;
-      padding: 10px;
-      margin: 10px 0;
-      width: 100%;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-    button {
-      background: #4b2aad;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover { background: #37228d; }
+canvas {
+  margin-top: 15px;
+  border-radius: 16px;
+  max-width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
 
-    canvas {
-      margin-top: 15px;
-      border-radius: 16px;
-      max-width: 100%;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
+h1 { color: #4b2aad; font-size: 20px; margin-bottom: 10px; }
+h2 { font-size: 16px; color: #000; margin-top: 5px; }
 
-    h1 { color: #4b2aad; font-size: 20px; margin-bottom: 10px; }
-    h2 { font-size: 16px; color: #000; margin-top: 5px; }
+.ayah {
+  margin: 20px 0;
+  font-size: 16px;
+  color: #333;
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 10px;
+}
 
-    .ayah {
-      margin: 20px 0;
-      font-size: 16px;
-      color: #333;
-      background: #f9f9f9;
-      padding: 15px;
-      border-radius: 10px;
-    }
+footer {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 14px;
+  color: #666;
+}
 
-    footer {
-      text-align: center;
-      margin-top: 30px;
-      font-size: 14px;
-      color: #666;
-    }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
   </style>
 </head>
-<body>
-
-<!-- ওয়েলকাম পেইজ -->
-<div class="welcome-screen" id="welcomeScreen">
+<body><!-- ওয়েলকাম পেইজ --><div class="welcome-screen" id="welcomeScreen">
   <img src="logo.png" alt="লোগো">
   <div class="unit-info">
     ২ নং জোন, ৭ নং ওয়ার্ড<br>
     কালিয়াকৈর পৌর শাখা<br>
     বাংলাদেশ জামায়াতে ইসলামী
   </div>
-</div>
-
-<!-- মূল অ্যাপ পেইজ -->
-<div class="container" id="mainApp">
+</div><!-- মূল অ্যাপ পেইজ --><div class="container" id="mainApp">
   <h1>বাংলাদেশ জামায়াতে ইসলামী</h1>
-  <h2>গণসংযোগ ২০২৫</h2>
-
-  <div class="ayah">
+  <h2>গণসংযোগ ২০২৫</h2>  <div class="ayah">
     “তোমাদের মধ্যে এমন এক দল থাকা উচিত, যারা মানুষকে কল্যাণের দিকে আহ্বান জানাবে, ভালো কাজের নির্দেশ দেবে এবং মন্দ কাজে নিষেধ করবে। তারাই সফলকাম।”  
     <br><b>– সূরা আলে ইমরান: ১০৪</b>
-  </div>
-
-  <input type="file" id="upload" accept="image/*">
+  </div>  <input type="file" id="upload" accept="image/*">
   <div style="width:100%; margin-top:15px;">
     <img id="image" style="max-width:100%; display:none;" />
   </div>
   <canvas id="canvas" width="768" height="768" style="display:none;"></canvas>
   <button id="frameBtn" onclick="cropAndFrame()">ক্রপ ও ফ্রেম যোগ করুন</button>
   <button id="reCropBtn" onclick="reCrop()" style="display:none;">পুনরায় ক্রপ করুন</button>
-  <button id="downloadBtn" onclick="downloadImage()" style="display:none;">ছবি ডাউনলোড করুন</button>
-
-  <footer>
+  <button id="downloadBtn" onclick="downloadImage()" style="display:none;">ছবি ডাউনলোড করুন</button>  <footer>
     <p>উদ্যোগে: রাশেদ উজ জামান</p>
+    <p id="downloadCounter" style="font-size: 13px; color: #888; margin-top: 5px;"></p>
   </footer>
-</div>
-
-<!-- JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
-<script>
+</div><!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script><script>
   let cropper;
   const image = document.getElementById('image');
   const canvas = document.getElementById('canvas');
@@ -185,11 +168,13 @@
   const downloadBtn = document.getElementById('downloadBtn');
   const frameBtn = document.getElementById('frameBtn');
   const reCropBtn = document.getElementById('reCropBtn');
+  const counterUrl = "https://script.google.com/macros/s/AKfycbzl-sDDkfkpIfA167QfHDUZCkNRqsk_6UEO6qqvhlEthDK0fE4lwDQWPwFMLKn3MmoRAg/exec";
 
   window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       document.getElementById('welcomeScreen').style.display = 'none';
       document.getElementById('mainApp').classList.add('active');
+      showDownloadCount();
     }, 3000);
   });
 
@@ -246,7 +231,23 @@
     link.download = 'profile_with_frame.png';
     link.href = canvas.toDataURL();
     link.click();
+    updateDownloadCounter();
   }
-</script>
-</body>
+
+  function updateDownloadCounter() {
+    fetch(counterUrl, { method: "POST" })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('downloadCounter').innerText = `ডাউনলোড করেছে: ${data.count} জন`;
+      });
+  }
+
+  function showDownloadCount() {
+    fetch(counterUrl)
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('downloadCounter').innerText = `ডাউনলোড করেছে: ${data.count} জন`;
+      });
+  }
+</script></body>
 </html>
