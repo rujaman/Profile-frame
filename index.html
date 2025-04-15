@@ -1,59 +1,82 @@
-<!DOCTYPE html>
-<html lang="bn">
+<!DOCTYPE html><html lang="bn">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>প্রোফাইল ফ্রেম - জামায়াতে ইসলামী ২০২৫</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>প্রোফাইল ফ্রেম অ্যাপ</title>
   <style>
-    body { font-family: 'Noto Sans Bengali', sans-serif; }
-    canvas { max-width: 100%; height: auto; }
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(to bottom right, #f1effd, #e0d5ff);
+      margin: 0;
+    }
+    h2 {
+      color: #5c3d9c;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 90%;
+    }
+    canvas {
+      margin-top: 20px;
+      border-radius: 16px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    button {
+      background: #5c3d9c;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-top: 20px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    input[type=file] {
+      margin-top: 10px;
+    }
   </style>
 </head>
-<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen p-4">
-
-  <h1 class="text-xl md:text-3xl font-bold text-green-700 text-center mb-6 leading-snug">
-    বাংলাদেশ জামায়াতে ইসলামী গণসংযোগ ২০২৫<br>
-    প্রোফাইল ফ্রেম ডিজাইন<br>
-    ভাই মোহাম্মদ রাশেদ উজ জামান
-  </h1>
-
-  <div class="bg-white p-6 rounded-xl shadow-xl w-full max-w-md text-center">
-    <input type="file" id="upload" accept="image/*" class="mb-4 w-full px-3 py-2 border rounded"/>
-    <canvas id="canvas" width="800" height="800" class="border rounded mb-4"></canvas>
-    <button id="download" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-full transition">
-      ডাউনলোড করুন
-    </button>
-  </div>
-
-  <script>
+<body>
+  <div class="card">
+    <h2>আপনার প্রোফাইল ছবিতে ফ্রেম যুক্ত করুন</h2>
+    <input type="file" id="upload" accept="image/*">
+    <canvas id="canvas" width="768" height="768"></canvas>
+    <button onclick="downloadImage()">ছবি ডাউনলোড করুন</button>
+  </div>  <script>
     const upload = document.getElementById('upload');
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
-    const frame = new Image();
-    frame.src = 'frame.png';
 
-    upload.addEventListener('change', (e) => {
+    const frame = new Image();
+    frame.src = 'frame.png'; // আপনার ফ্রেম PNG ফাইল (আপলোড করা)
+
+    upload.addEventListener('change', function(e) {
       const reader = new FileReader();
-      reader.onload = (event) => {
+      reader.onload = function(event) {
         const img = new Image();
-        img.onload = () => {
+        img.onload = function() {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-          ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
-        };
+          frame.onload = () => ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
+          if (frame.complete) ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
+        }
         img.src = event.target.result;
-      };
+      }
       reader.readAsDataURL(e.target.files[0]);
     });
 
-    document.getElementById('download').addEventListener('click', () => {
+    function downloadImage() {
       const link = document.createElement('a');
       link.download = 'profile_with_frame.png';
       link.href = canvas.toDataURL();
       link.click();
-    });
-  </script>
-
-</body>
+    }
+  </script></body>
 </html>
