@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="bn">
 <head>
   <meta charset="UTF-8" />
@@ -13,48 +14,80 @@
       background: linear-gradient(to bottom right, #e0eafc, #cfdef3);
       min-height: 100vh;
     }
-    .welcome-screen, .container {
-      position: absolute;
+
+    .welcome-screen {
+      position: fixed;
       top: 0; left: 0;
       width: 100%;
       height: 100%;
+      background: linear-gradient(to bottom right, #e0eafc, #cfdef3);
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      background: linear-gradient(to bottom right, #e0eafc, #cfdef3);
-      transition: opacity 1s ease;
-      z-index: 10;
+      z-index: 100;
+      animation: fadeOut 1s ease forwards;
+      animation-delay: 3s;
     }
-    .hidden {
-      opacity: 0;
-      pointer-events: none;
-      z-index: -1;
-    }
-    .logo {
-      max-width: 120px;
+
+    .welcome-screen img {
+      width: 150px;
+      height: auto;
       margin-bottom: 20px;
+      animation: zoomIn 1s ease;
     }
-    .unit-info {
-      font-size: 18px;
+
+    .welcome-screen .unit-info {
+      font-size: 20px;
       color: #333;
+      text-align: center;
+      line-height: 1.5;
+      padding: 0 20px;
+      animation: fadeInUp 1.2s ease;
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    @keyframes zoomIn {
+      from {
+        transform: scale(0.7);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .container {
+      display: none;
       background: #fff;
-      padding: 30px;
-      max-width: 500px;
-      margin: auto;
       border-radius: 20px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      max-width: 500px;
+      margin: 50px auto;
       text-align: center;
-      opacity: 0;
-      z-index: 1;
+      animation: fadeIn 1s ease-in-out;
     }
-    .container.active {
-      opacity: 1;
-      z-index: 2;
-    }
+
+    .container.active { display: block; }
 
     input, button {
       font-family: inherit;
@@ -72,14 +105,17 @@
       cursor: pointer;
     }
     button:hover { background: #37228d; }
+
     canvas {
       margin-top: 15px;
       border-radius: 16px;
       max-width: 100%;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
+
     h1 { color: #4b2aad; font-size: 24px; margin-bottom: 10px; }
     h2 { font-size: 18px; color: #000; margin-top: 5px; }
+
     .ayah {
       margin: 20px 0;
       font-size: 16px;
@@ -88,11 +124,17 @@
       padding: 15px;
       border-radius: 10px;
     }
+
     footer {
       text-align: center;
       margin-top: 30px;
       font-size: 14px;
       color: #666;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -100,11 +142,11 @@
 
 <!-- ওয়েলকাম পেইজ -->
 <div class="welcome-screen" id="welcomeScreen">
-  <img src="logo.png" alt="লোগো" class="logo">
-  <div class="unit-info">পূর্ব উলুসারা ইউনিট, জোন ২, কালিয়াকৈর, গাজীপুর</div>
+  <img src="logo.png" alt="লোগো">
+  <div class="unit-info">পূর্ব উলুসারা ইউনিট<br>জোন ২, কালিয়াকৈর, গাজীপুর</div>
 </div>
 
-<!-- মূল অ্যাপ স্ক্রিন -->
+<!-- মূল অ্যাপ পেইজ -->
 <div class="container" id="mainApp">
   <h1>বাংলাদেশ জামায়াতে ইসলামী</h1>
   <h2>গণসংযোগ ২০২৫</h2>
@@ -141,10 +183,9 @@
   const frameBtn = document.getElementById('frameBtn');
   const reCropBtn = document.getElementById('reCropBtn');
 
-  // অ্যানিমেটেড ওয়েলকাম থেকে মেইন অ্যাপে আসা
   window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
-      document.getElementById('welcomeScreen').classList.add('hidden');
+      document.getElementById('welcomeScreen').style.display = 'none';
       document.getElementById('mainApp').classList.add('active');
     }, 3000);
   });
@@ -205,4 +246,4 @@
   }
 </script>
 </body>
-</html>>
+</html>
