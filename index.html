@@ -1,110 +1,106 @@
-<!DOCTYPE html><html lang="bn">
+<!DOCTYPE html>
+<html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>প্রোফাইল ফ্রেম অ্যাপ</title>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Baloo Da 2', cursive;
-      background: linear-gradient(to bottom right, #e0eafc, #cfdef3);
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-    .container {
-      background: #fff;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      padding: 30px;
-      max-width: 400px;
-      width: 100%;
-      text-align: center;
-      animation: fadeIn 1s ease-in-out;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    h1 {
-      color: #4b2aad;
-      font-size: 24px;
-      margin-bottom: 20px;
-    }
-    input[type=file] {
-      margin: 15px 0;
-    }
-    canvas {
-      margin-top: 15px;
-      border-radius: 16px;
-      width: 100%;
-      max-width: 350px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-    button {
-      background: #4b2aad;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-    button:hover {
-      background: #37228d;
-    }
-    footer {
-      margin-top: 30px;
-      font-size: 14px;
-      color: #666;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>প্রোফাইল ফ্রেম</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f1f1f1;
+        }
+
+        .index-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        input[type="file"] {
+            padding: 12px;
+            margin-top: 20px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #image-container {
+            position: relative;
+            margin-top: 20px;
+        }
+
+        #uploaded-image {
+            width: 100%;
+            height: auto;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 10px solid rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>আপনার প্রোফাইল ফ্রেম যুক্ত করুন</h1>
-    <input type="file" id="upload" accept="image/*">
-    <canvas id="canvas" width="768" height="768"></canvas>
-    <button onclick="downloadImage()">ছবি ডাউনলোড করুন</button>
-  </div>
-  <footer>
-    <p>উদ্যোগে: বাংলাদেশ জামায়াতে ইসলামী</p>
-  </footer>  <script>
-    const upload = document.getElementById('upload');
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
+    <div class="index-container">
+        <div class="content">
+            <h1>আপনার প্রোফাইল ছবি আপলোড করুন</h1>
+            <input type="file" id="profile-pic" accept="image/*">
+            <div id="image-container">
+                <img id="uploaded-image" src="" alt="Uploaded Image" style="display:none;">
+                <div id="frame" class="frame" style="display:none;"></div>
+            </div>
+        </div>
+    </div>
 
-    const frame = new Image();
-    frame.src = 'frame.png';
-
-    upload.addEventListener('change', function(e) {
-      const reader = new FileReader();
-      reader.onload = function(event) {
-        const img = new Image();
-        img.onload = function() {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-          frame.onload = () => ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
-          if (frame.complete) ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
-        }
-        img.src = event.target.result;
-      }
-      reader.readAsDataURL(e.target.files[0]);
-    });
-
-    function downloadImage() {
-      const link = document.createElement('a');
-      link.download = 'profile_with_frame.png';
-      link.href = canvas.toDataURL();
-      link.click();
-    }
-  </script></body>
+    <script>
+        const fileInput = document.getElementById('profile-pic');
+        const uploadedImage = document.getElementById('uploaded-image');
+        const frame = document.getElementById('frame');
+        
+        fileInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedImage.src = e.target.result;
+                    uploadedImage.style.display = 'block';
+                    frame.style.display = 'block'; // Show frame after image is loaded
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
 </html>
