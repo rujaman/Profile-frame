@@ -28,7 +28,7 @@
       animation: fadeIn 1s ease-in-out;
     }
     .active { display: block; }
-    input, select, button {
+    input, button {
       font-family: inherit;
       font-size: 16px;
       padding: 10px;
@@ -78,10 +78,10 @@
 </head>
 <body>
 
-<!-- ওয়েলকাম স্ক্রিন -->
+<!-- ওয়েলকাম স্ক্রিন (শুধু লোগো এবং টেক্সট, ৩ সেকেন্ড পর অটো হাইড) -->
 <div class="container active" id="welcomeScreen">
   <img src="logo.png" alt="লোগো" class="logo">
-  <button onclick="goToApp()">শুরু করুন</button>
+  <p><strong>পূর্ব উলুসারা ইউনিট, জোন ২, কালিয়াকৈর, গাজীপুর</strong></p>
 </div>
 
 <!-- মূল অ্যাপ স্ক্রিন -->
@@ -99,8 +99,7 @@
     <img id="image" style="max-width:100%; display:none;" />
   </div>
   <canvas id="canvas" width="768" height="768" style="display:none;"></canvas>
-  <button id="frameBtn" onclick="cropAndFrame()">ক্রপ ও ফ্রেম যোগ করুন</button>
-  <button id="reCropBtn" onclick="reCrop()" style="display:none;">পুনরায় ক্রপ করুন</button>
+  <button onclick="cropAndFrame()">ক্রপ ও ফ্রেম যোগ করুন</button>
   <button id="downloadBtn" onclick="downloadImage()" style="display:none;">ছবি ডাউনলোড করুন</button>
 </div>
 
@@ -118,13 +117,14 @@
   const frame = new Image();
   frame.src = 'frame.png'; // ফ্রেম ইমেজ পাথ
   const downloadBtn = document.getElementById('downloadBtn');
-  const frameBtn = document.getElementById('frameBtn');
-  const reCropBtn = document.getElementById('reCropBtn');
 
-  function goToApp() {
-    document.getElementById('welcomeScreen').classList.remove('active');
-    document.getElementById('mainApp').classList.add('active');
-  }
+  // ওয়েলকাম স্ক্রিন ৩ সেকেন্ড পরে হাইড করে অ্যাপ শুরু
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      document.getElementById('welcomeScreen').classList.remove('active');
+      document.getElementById('mainApp').classList.add('active');
+    }, 3000);
+  });
 
   document.getElementById('upload').addEventListener('change', function(e) {
     const file = e.target.files[0];
@@ -136,7 +136,11 @@
       if (cropper) cropper.destroy();
       cropper = new Cropper(image, {
         aspectRatio: 1,
-        viewMode: 1
+        viewMode: 1,
+        movable: true,
+        zoomable: true,
+        scalable: false,
+        rotatable: false
       });
     };
     reader.readAsDataURL(file);
@@ -151,27 +155,15 @@
     ctx.drawImage(croppedCanvas, 0, 0, canvas.width, canvas.height);
     if (frame.complete) {
       ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
+      canvas.style.display = 'block';
+      downloadBtn.style.display = 'inline-block';
     } else {
-      frame.onload = () => ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
+      frame.onload = () => {
+        ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
+        canvas.style.display = 'block';
+        downloadBtn.style.display = 'inline-block';
+      };
     }
-    canvas.style.display = 'block';
-    downloadBtn.style.display = 'inline-block';
-    reCropBtn.style.display = 'inline-block';
-    image.style.display = 'none';
-    cropper.destroy();
-    frameBtn.style.display = 'none';
-  }
-
-  function reCrop() {
-    canvas.style.display = 'none';
-    frameBtn.style.display = 'inline-block';
-    downloadBtn.style.display = 'none';
-    reCropBtn.style.display = 'none';
-    image.style.display = 'block';
-    cropper = new Cropper(image, {
-      aspectRatio: 1,
-      viewMode: 1
-    });
   }
 
   function downloadImage() {
